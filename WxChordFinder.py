@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 
 import wx
-import chordfinder
+import ChordFinder
 
 class main_frame(wx.Frame):
     """ Subclass wx.Frame to provide a window for app """

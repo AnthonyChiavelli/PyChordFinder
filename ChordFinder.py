@@ -7,6 +7,9 @@ chr_scale = ['A', 'A#', 'B', 'C', 'C#', 'D',
              'D#', 'E', 'F', 'F#', 'G', 'G#']
 
 chord_names = {"Major": [0,4,7], "Minor": [0,3,7], "Major7": [0,4,7,11],
+               "Augmented": [0, 4, 8], "Diminished": [0,3,6], "Diminished7": [0,3,6,9],
+               "Half-diminished7": [0,3,6,10], "Minor-major7": [0, 3, 7, 11],
+               "Augmented7": [0, 4, 8, 10], "Augmented major7": [0, 4, 8, 11],
                "Minor7": [0,3,7,10], "Major6": [0,4,7,9],
                "Minor6": [0,3,7,9], "Dominant7": [0,4,7,10],
                "Sus2": [0,2,7], "Sus4": [0,5,7], "Add9": [0,2,4,7]}
@@ -71,6 +74,7 @@ def find_chords(notes):
             interval = ((chr_scale.index(note) -
                          chr_scale.index(tonic)) + 12 ) % 12
             pattern.append(interval)
+        
         pattern = list(set(pattern)) #Eliminate duplicate intervals
         pattern.sort()
         #Match the pattern to one in the chord library
@@ -82,15 +86,13 @@ def find_chords(notes):
 if __name__ == "__main__":    
     import doctest
     doctest.testmod()
-    
     #No args given
     if len(sys.argv) == 1:
       print "Usage: chordfinder.py {note1} [note2] [note3] ..."
       sys.exit(1)
-    
+
     #Flatten the args into a single string
     notes = reduce(operator.concat, sys.argv[1:])
-    
     #Find and display chords
     chords = find_chords(notes)
     for chord in chords:
